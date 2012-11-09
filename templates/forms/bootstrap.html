@@ -1,0 +1,28 @@
+{% load i18n %}
+{% if form.errors %}
+  <div class="alert alert-block error fade in" data-alert="alert">
+    <a data-dismiss='alert' class="close" href="#">×</a>
+    <p><strong>{% trans "Error!" %}</strong>
+        {% trans "Form was not filled correctly. Changes are not saved." %}
+    </p>
+  </div>
+{% endif %}
+
+<fieldset>
+    {% for field in form.visible_fields %}
+    <div class='form field{{ field.field.required|yesno:" required," }}{{ field.errors|yesno:" control-group error,"}}'>
+        {% if form.errors %}{% spaceless %}
+            {% for e in field.errors %}
+                <span class='form-errors'>{{ e }}</span>
+            {% endfor %}{% endspaceless %}{% endif %}
+        <label for='id_{{ field.label_tag }}'>{{ field.label }}:</label>
+        {{ field }}{% if field.help_text %}
+        <span class='help-text'>({{ field.help_text|safe }})</span>{% endif %}
+    </div>
+    {% endfor %}
+    {% for field in form.hidden_fields %}
+        <div class='hide'>
+            {{ field.errors }} {{ field }}
+        </div>
+    {% endfor %}
+</fieldset>

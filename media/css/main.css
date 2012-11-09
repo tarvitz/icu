@@ -1,0 +1,50 @@
+/*spacers */
+.top.spacer{
+    margin-bottom: 60px;
+}
+.spacer{
+    margin-bottom: 15px;
+}
+/* news */
+.post{
+    margin-bottom: 10px;
+}
+.textarea.input{
+    width: 675px;
+}
+/* endof news */
+
+/* forms */
+.filter-form{
+    display: inline-block;
+}
+
+.form-errors{
+    color: red;
+}
+.spoiler{
+    display: none;
+}
+.btn.fixed-size{
+    width: 50px;
+    margin-bottom: 5px;
+}
+.thmb{
+    border: 1px solid black;
+}
+.icon-bitcoin, .icon-litecoin, .icon-yandexmoney{
+    width: 16px;
+    height: 16px;
+    background-image: url(/media/img/wallets.png);
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+}
+.icon-litecoin{
+    background-position: 0px -16px;
+}
+.icon-yandexmoney{
+    background-position: 0px -32px;
+}
+ul.list li{
+    list-style-type: square;
+}

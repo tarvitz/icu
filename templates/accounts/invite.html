@@ -1,0 +1,8 @@
+{% extends base %} {% load i18n %}
+{% block content %}
+<form class='invite form' id='invite-form' action='{% url accounts:invite %}' method='POST'>
+    {% csrf_token %}
+    {% include "forms/bootstrap.html" %}
+    <input type='submit' class='btn-primary btn-medium' value='{% trans "Invite" %}' />
+</form>
+{% endblock %}

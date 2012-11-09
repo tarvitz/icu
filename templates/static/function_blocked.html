@@ -1,0 +1,12 @@
+{% extends base %}
+{% load i18n %}
+{% block content %}
+<h3>{% trans "Sorry, this part of the resource if strict permission or blocked for future days" %}</h3>
+<hr width='30' />
+{% blocktrans %}
+    Please do not panic, someday it will be free to use for everyone, or something like this.<br>
+    If you have problems with login or register, be patient and read{% endblocktrans %}:<br>
+    <a href='{% url core:faq %}'>Frequently asked questions</a>.<br>
+    <br>
+    {% trans "Thank you for your patience." %}
+{% endblock %}

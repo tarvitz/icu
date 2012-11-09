@@ -1,0 +1,54 @@
+{% extends base %}{% load i18n %}
+{% block content %}
+
+<div class='control-group'>
+    <a href='javascript:void();' onClick='$("#add-ban-block").toggle();'
+        class='btn btn-info btn-toggle' data-target='#add-ban-block'>{% trans "Wanna add ban?"%}</a>
+    <div class='spoiler' id='add-ban-block'>
+    <form class='add ban' id='add-ban-form' method='POST' action='{% url banlist:add %}'>
+        {% csrf_token %}
+        {% include "forms/bootstrap.html" %}
+        <input type='submit' class='btn btn-success' value='{% trans "Add" %}' />
+    </form>
+    </div>
+</div>
+<div class='ban list'>
+{% if servers %}
+    <table class='servers table'>
+    <thead>
+    <tr>
+        <th>{% trans "#" %}</th>
+        <th>{% trans "Server name" %}</th>
+        <th>{% trans "Server ip" %}</th>
+        <th>{% trans "Reason" %}</th>
+        <th>{% trans "Created on" %}</th>
+        <th>{% trans "Administrate" %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for server in servers %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ server.server_name|default_if_none:"&mdash;" }}</td>
+        <td>{{ server.ip_address }}</td>
+        <td>{{ server.reason }}</td>
+        <td>{{ server.created_on }}</td>
+        <td class='administrate'>
+            <a class='btn btn-danger btn-small fixed-size'
+                href='#' data-dialog='confirm-dialog'
+                data-target='#confirm-dialogue'
+                data-toggle='modal'
+                data-message='{% trans "Are your sure you want to delete this server?" %}'
+                data-btn='danger'
+                data-href="{% url banlist:delete server.pk %}">{% trans "Delete" %}</a><br>
+            <a class='btn btn-primary btn-small fixed-size' href='{% url banlist:edit server.pk %}'>{% trans "Edit" %}</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+{% else %}
+    <h3>{% trans "No bans found" %}</h3>
+{% endif %}
+</div>
+{% endblock %}

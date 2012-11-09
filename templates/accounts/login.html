@@ -1,0 +1,8 @@
+{% extends base %} {% load i18n %}
+{% block content %}
+<form class='login form' id='login-form' action='{% url accounts:login %}' method='POST'>
+    {% csrf_token %}
+    {% include "forms/bootstrap.html" %}
+    <input type='submit' class='btn-primary btn-medium' value='{% trans "Login" %}' />
+</form>
+{% endblock %}

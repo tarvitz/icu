@@ -1,0 +1,55 @@
+{% extends base %}{% load i18n %}
+{% block content %}
+<div class='user profile'>
+    <ul class='fields'>
+        <li>{% trans "Username" %}: <b>{{ user.username }}</b></li>
+        <li>{% trans "Date joined" %}: <b>{{ user.date_joined }}</b></li>
+        <li id='apikey'>{% trans "Your personal api-key" %}: <b id='key'>{{ user.api_key.key }}</b>
+            <a href="#" data-toggle='modal' 
+                class='btn btn-link' data-target='#confirmDialogue'>{% trans "Revoke and reload" %}</a></li>
+        <li>{% trans "Invites used" %}: <b>{{ user.invites }}
+        {% trans "of" context "used of" %} {{ global_settings.MAX_INVITES_COUNT }}</b></li>
+    </ul>
+</div>
+<div class='modal fade in hide' id='confirmDialogue'>
+    <div class='modal-header'>
+        <a class='close' data-dismiss='modal'>x</a>
+        <h3>{% trans "Revoke and generate new apikey?" %}</h3>
+    </div>
+    <div class='modal-body'>
+        {% trans "Your old key will be erased and stop work, use your new one instead" %}.<br>
+        {% trans "Are you sure you want to complete this action?" %}
+    </div>
+    <div class='modal-footer'>
+        <a class='btn btn-danger' onClick='reloadApiKey()'>{% trans "Yes" %}</a>
+        <a class='btn' data-dismiss='modal'>{% trans "No" %}</a>
+    </div>
+</div>
+<script language='javascript'>
+    var reloadApiKey = function(){
+        url = '{% url accounts:reload-api-key %}';
+        csrftoken = document.cookie.match(/csrftoken=([\w\d]+)/)[1];
+        if (!csrftoken){
+            console.log('no csrf found, exit');
+            return false;
+        }
+        data = 'csrfmiddlewaretoken=' + csrftoken;
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: url,
+            data: data,
+            success: function(response){
+                if(response.success){
+                    $("#apikey #key").text(response.key);
+                    $("#confirmDialogue").modal('hide');
+                    alert("{% trans "Updated" %}");
+                }else{
+                    alert("Not updated, please reload");
+                    //smth happened
+                }
+            }
+        });
+    }
+</script>
+{% endblock %}

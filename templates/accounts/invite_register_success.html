@@ -1,0 +1,4 @@
+{% extends base %} {% load i18n %}
+{% block content %}
+<h1>{% trans "You registered successful, please " %}<a href='{% url accounts:login %}'>{% trans "login" %}</a> ;)</h1>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% load i18n coretags %}
+<script type='text/html' id='showInformDialogue'>
+    <div id='inform-dialogue' class='modal fade in hide'>
+        <div class='modal-header'>
+            <a href='#' class='close' data-dismiss='modal'>x</a>
+            <h3>{% trans "Information" %}</h3>
+        </div>
+        <div class='modal-body'>
+            {% raw %}{{if msg}}{% endraw %}
+                ${ msg }
+            {% raw %}{{else}}{% endraw %}
+                {% trans "Information tag" %}
+            {% raw %}{{/if}}{% endraw %}
+        </div>
+        <div class='modal-footer'>
+            <a href='#'
+                onClick='$("#inform-dialogue").modal("hide");'
+                class='btn ${ no_btn }'>{% trans "Ok" %}</a>
+        </div>
+    </div>
+</script>
+
+<script type='text/html' id='showConfirmDialogue'>
+    <div id='confirm-dialogue' class='modal fade in hide'>
+        <div class='modal-header'>
+            <a href='#' class='close' data-dismiss='modal'>x</a>
+            <h3>{% trans "Proceed the action?" %}</h3>
+        </div>
+        <div class='modal-body'>
+            {% raw %}{{if msg}}{% endraw %}
+                ${ msg }
+            {% raw %}{{else}}{% endraw %}
+                {% trans "Do you want to proceed the action?" %}
+            {% raw %}{{/if}}{% endraw %}
+        </div>
+        <div class='modal-footer'>
+            {% raw %}
+                {{if ajax}}
+                <a href='#' onClick='${ ajax }' class='btn ${ parseYesBtn(yes_btn) }'>
+                {{else}}
+                <a href='${ url }' class='btn ${ parseYesBtn(yes_btn) }'>
+                {{/if}}
+            {% endraw %}
+                    {% trans "Yes, I do" %}</a>
+            <a href='#'
+                onClick='$("#confirm-dialogue").modal("hide");'
+                class='btn ${ no_btn }'>{% trans "No, i don't" %}</a>
+        </div>
+    </div>
+</script>
+
+<script type='text/javascript'>
+var parseYesBtn = function(btn){
+    return (btn) ? "btn-" + btn : "";
+}
+</script>

@@ -1,0 +1,16 @@
+{% extends base %} {% load i18n %}
+{% block content %}
+    <h3>Welcome to BF3 banlist server</h3>
+    <hr width='30' />
+    {% blocktrans %}
+    Sick and tired to get spoiled servers with uncommon behaviour?<br>
+    Sick and tired admins abuse?<br>
+    Sick and tired anything else and wanna ban server?<br>
+    <br>
+    So you're welcome!
+    {% endblocktrans %}<br>
+    <hr width='30' />
+    <a class='btn btn-invert' href='{% url accounts:register %}'>{% trans "Register" %}</a>
+    <a class='btn btn-success' href='{% url accounts:login %}'>{% trans "Login" %}</a><br>
+
+{% endblock %}

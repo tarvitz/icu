@@ -1,0 +1,14 @@
+{% extends base %}{% load i18n %}
+{% block content %}
+<div class='control-group'>
+    <form class='add ban' id='add-ban-form' method='POST'
+        action='{% if form.instance.pk %}{% url banlist:edit form.instance.pk %}{% else %}{% url banlist:add %}{% endif %}'>
+        {% csrf_token %}
+        {% include "forms/bootstrap.html" %}
+        {% if form.instance %}
+            <a class='btn' href='{% url banlist:index %}'>{% trans "Back to banlist" %}</a>
+        {% endif %}
+        <input type='submit' class='btn btn-success' value='{{ form.instance|yesno:_("Save, Add") }}' />
+    </form>
+</div>
+{% endblock %}

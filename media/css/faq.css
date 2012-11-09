@@ -1,0 +1,21 @@
+.faq.answers a[name]{
+    color: #333;
+    text-decoration: none;
+    font-size: 16pt;
+    display: block;
+    line-height: 30px;
+    font-weight: bold;
+}
+.faq li{
+    list-style-type: square;
+}
+.steps li, .requirements li{
+    list-style-type: decimal;
+}
+.code{
+    margin-top: 5px;
+}
+
+.images a img{
+    margin-top: 5px;
+}

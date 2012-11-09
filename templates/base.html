@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>{% load i18n coretags%}
+<title>{% block title %}b3ban.blacklibrary.ru{% endblock %}</title>
+{% block css %}
+<link rel='stylesheet' href='/media/css/bootstrap.min.css' media='screen'>
+<link rel='stylesheet' href='/media/css/chosen.css' media='screen'>
+<link rel='stylesheet' href='/media/css/lightbox.css' media='screen'>
+<link rel='stylesheet' href='/media/css/main.css' media='screen'>
+{% endblock %}
+{% block js %}
+<script type='text/javascript' src='/media/js/jquery-1.7.2.min.js'></script>
+<script type='text/javascript' src='/media/js/bootstrap-2.0.min.js'></script>
+<script type='text/javascript' src='/media/js/supersized.3.2.7.min.js'></script>
+<script type='text/javascript' src='/media/js/lightbox.js'></script>
+<script type='text/javascript' src='/media/js/chosen.jquery.js'></script>
+<script type='text/javascript' src='/media/js/jquery.tmpl.min.js'></script>
+<script type='text/javascript' src='/media/js/jquery.confirm_dialogue.js'></script>
+{% endblock %}
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="{% url core:index %}">ICu</a>
+
+      {% if user.is_authenticated %}
+      <div class='btn-group pull-right'>
+          <a class='btn btn-black dropdown-toggle' data-toggle='dropdown' href='#'>
+          <i class='icon-user'></i>
+            {{ user.username }}
+          <i class='caret'></i></a>
+          <ul class='dropdown-menu'>
+                <li><a href='{% url accounts:profile %}'>{% trans "View profile" %}</a></li>
+                <li><a href='{% url accounts:invite %}'>{% trans "Invite friend" %}</a></li>
+                <li class='divider'>&nbsp;</li>
+                <li><a href='{% url accounts:logout %}'>Logout</a></li>
+          </ul>
+      </div>
+
+      {% comment %}
+      {% if perms.alter_permissions %}
+      <div class='btn-group pull-right'>
+         <a class='btn btn-black dropdown-toggle' data-toggle='dropdown' href='#'>
+             &nbsp;{% trans "admin" %} <i class='caret'></i></a>
+         <ul class='dropdown-menu'>
+             <li><a href='#'>{% trans "User permissions" %}</a></li>
+         </ul>
+      </div>
+      {% endif %}
+      {% endcomment %}
+      {% else %}
+          <div class='nav-collapse pull-right'>
+                <ul class='nav'>
+                    <li><a href="{% url accounts:login %}">{% trans "Login" %}</a></li>
+                    <li><a href="{% url accounts:register %}">{% trans "Register" %}</a></li>
+                </ul>
+          </div>
+      {% endif %} {# is auth #}
+
+     <div class="nav-collapse">
+        <ul class="nav">
+          {% comment %}
+          {% if perms.change_news or perms.alter_news %}
+          <div class='btn-group pull-right'>
+          <a class='btn btn-info dropdown-toggle' data-toggle='dropdown' href='#'>
+            News
+          <i class='caret'></i></a>
+          <ul class='dropdown-menu'>
+                <li><a href='#'>View news</a></li>
+                <li><a href='#'>Add post</a></li>
+                <li class='divider'>&nbsp;</li>
+                <li><a href='#'>View drafts</a></li>
+          </ul>
+          </div>
+          {% else %}
+          <li class="active"><a href="#">News</a></li>
+          {% endif %}
+          {% endcomment %}
+          <li class='{% check_location banlist:index as "active" %}'><a href="{% url banlist:index %}">{% trans "Banlist" %}</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+</div>
+<div class='top spacer'></div>
+
+<div class='container'>
+{% block content %}{% endblock %}
+</div>
+{# stuff #}
+{% include "jtmpl/core.html" %}
+
+{% block endjs %}{% endblock %}
+<script type='text/javascript'>
+$(document).ready(function(){
+    $("[rel=tooltip]").tooltip({live: true});
+    $("select.chosen").chosen();
+{% block js_document_ready %}{% endblock %}
+});
+</script>
+</body></html>
