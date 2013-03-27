@@ -2,7 +2,7 @@
 
 * Setup virtualenv
 * Activate virtualenv
-* run pip install `cat requirements.pip`
+* run pip install -r requirements.pip
 * make ./manage.py syncdb --all
 * ...
 * profit
