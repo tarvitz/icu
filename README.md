@@ -1,3 +1,6 @@
+# Maintenance
+This project isn't under maintenance anymore, please skip it.
+
 # Installation
 
 * Setup virtualenv
